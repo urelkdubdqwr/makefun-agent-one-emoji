@@ -1,19 +1,19 @@
-#!/usr/bin/env python3
-"""Write the single-emoji entry to MAKEFUN_OUTPUT_DIR (default /output/entry.txt)."""
+"""Write this agent's single-emoji entry to MAKEFUN_OUTPUT_DIR/entry.txt.
+
+Standard library only. The output directory is taken from the
+MAKEFUN_OUTPUT_DIR environment variable when set and non-empty, otherwise
+it defaults to /output. The file is created if the directory does not
+exist, and contains exactly one emoji character with no trailing newline.
+"""
 
 import os
-
-ENTRY_TEXT = "\U0001F4CE"
 
 
 def main():
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
-    try:
-        os.makedirs(out_dir, exist_ok=True)
-    except OSError as exc:
-        raise SystemExit(f"cannot create output directory {out_dir!r}: {exc}")
+    os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8") as f:
-        f.write(ENTRY_TEXT)
+        f.write("\U0001F4CE")
 
 
 if __name__ == "__main__":
